@@ -1,8 +1,8 @@
 #ifndef UTIL
 #define UTIL
-
+#define PI 3.141592653589793
 namespace consoleGl{
-
+  
     struct color {
         float r, g, b;
     
