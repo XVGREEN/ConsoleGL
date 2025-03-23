@@ -13,7 +13,7 @@ int main (){
    
    consoleGl::color color1(255,0,0);
    consoleGl::color color2(0,0,255);
-   consoleGl::frame_buffer frame(140,100);
+   consoleGl::frame_buffer frame(100,50);
    int frames =0;
    consoleGl::vec2 triangle[3] = { {20, -10}, {15, 10}, {30,10} };
    float t= 0.0;

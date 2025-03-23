@@ -50,7 +50,7 @@ void drawTriangle(const vec2 vecs[3], frame_buffer& fb) {
 void raster(const vec2 vecs[3], frame_buffer& fb) {
     vec2 center = (vecs[0] + vecs[1] + vecs[2]) / 3.0f; 
 
-    for (float t = 0.0f; t <= 1.0f; t += 0.01f) {
+    for (float t = 0.0f; t <= 1.0f; t += 0.001f) {
         vec2 scaled[3] = {
             center + (vecs[0] - center) * t,
             center + (vecs[1] - center) * t,
