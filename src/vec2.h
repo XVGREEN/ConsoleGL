@@ -28,7 +28,11 @@ namespace consoleGl{
  		 }
     	 vec2 operator*(float scale)const{
   			return vec2(x*scale,y*scale);
-        }		
+        }
+          vec2 operator/(float scale)const{
+          	           return vec2(x/scale,y/scale);
+     	  }
+          		
          float length()const{
       	return sqrt(x*x+y*y);
         }

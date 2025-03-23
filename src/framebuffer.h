@@ -1,6 +1,6 @@
 #ifndef FRAMEBUFFER
 #define FRAMEBUFFER
-
+#include <algorithm>
 namespace consoleGl{
 struct frame_buffer {
     bool* data;
@@ -22,13 +22,22 @@ struct frame_buffer {
     }
 
    void print() const {
+        for(int i=0;i<width;i++)std::cout<<"-";
+        std::cout<<"\n";
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
                 std::cout << (data[y * width + x] ? "#" : " ");
             }
             std::cout << "\n";
         }
+
     }
+  
+    void clear() {
+    	 std::fill(data, data + width * height, false);
+     }
+    	
+    
 };
 };
 #endif

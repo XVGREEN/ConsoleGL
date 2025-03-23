@@ -1,4 +1,5 @@
 #include "vec2.h"
 #include "mat3.h"
+#include "util.h"
 #include "framebuffer.h"
 #include "raster.h"
