@@ -1,6 +1,12 @@
+CC = g++
+CFLAGS = -std=c++11
+TARGET = main
+SRC = main.cpp
 
-main: main.cpp
-	g++ main.cpp -o main
+all: $(TARGET)
 
-clear:
-	rm main
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+
+clean:
+	rm -f $(TARGET)

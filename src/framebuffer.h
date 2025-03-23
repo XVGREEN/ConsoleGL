@@ -26,7 +26,7 @@ struct frame_buffer {
         std::cout<<"\n";
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                std::cout << (data[y * width + x] ? "#" : " ");
+                std::cout << (data[y * width + x] ? "#" : ".");
             }
             std::cout << "\n";
         }

@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <cmath>
+#include <functional>
+#include <chrono>
 #include "src/consolegl.h"
 #define PI 3.141592653589793
 
@@ -9,33 +11,34 @@ void delay(int k) {
     for (int i = 0; i < k * 10000; i++)
         for (int j = 0; j < k * 100; j++);
 }
-int main (){
-   
-   consoleGl::color color1(255,0,0);
-   consoleGl::color color2(0,0,255);
-   consoleGl::frame_buffer frame(100,50);
-   int frames =0;
-   consoleGl::vec2 triangle[3] = { {20, -10}, {15, 10}, {30,10} };
-   float t= 0.0;
-   do{
-     t+=0.02;
-     auto col= lerp(color1,color2,t);
-     consoleGl::setColor(col);
-     float angle = 2.0*PI*t;
-     float s= 1.0;
-     auto r= consoleGl::mat3::rotate(angle);
-      consoleGl:: vec2 rvec[3]  =  {r*triangle[0]*s,
-      								r*triangle[1]*s,
-      								r*triangle[2]*s};
+int main (){   
+   consoleGl:: vec2 resolution(70,50);
+   consoleGl::frame_buffer frame(resolution.x,resolution.y); 
+  // auto start_time = std::chrono::high_resolution_clock::now();
 
-     consoleGl::raster(rvec,frame);
-      frame.print();
-      delay(6);
-      frame.clear();
-      frames++;
-   	if(t>=1.)t=0;
-   }while(frames<100);
+  	       
   
+
+    std::function<bool(int, int,float t)> shader = [=](int x, int y,float t) -> bool {
+      consoleGl:: vec2 coord(x,y);
+      auto uv= (coord*2.0-resolution)/resolution.y;
+        if (uv.y>=sin(4*uv.x+t)*0.2) return true; 
+        return false;             
+      };
+      std::cout<<"whatatta\n";
+       auto start_time = std::chrono::high_resolution_clock::now();
+      while (true){
+        auto now = std::chrono::high_resolution_clock::now();
+         std::chrono::duration<double> elapsed = now - start_time;
+         auto time = elapsed.count();
+         if(time>=10)break;
+         applyFragment(frame,shader,time);
+         frame.print();
+         deleay(5);
+         frame.clear();	
+         
+      }
+   
    
   
  

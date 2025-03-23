@@ -24,7 +24,11 @@ namespace consoleGl{
             return color(r * scalar, g * scalar, b * scalar);
         }
     };
-    
+
+     void delay(int k) {
+       for (int i = 0; i < k * 10000; i++)                       
+           for (int j = 0; j < k * 100; j++);
+       }
 	template<class T>
 	T lerp (T a, T b,float t){
 		return a+(b-a)*t;
