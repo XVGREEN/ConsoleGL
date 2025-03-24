@@ -16,35 +16,43 @@ int main (){
    consoleGl::frame_buffer frame(resolution.x,resolution.y);
     
    //shader functions (^.^)
-     std::function<bool(int, int,float t)> shader1 = [=](int x, int y,float t) -> bool {
+      consoleGl::frag_shader  shader1 = [](int x, int y,std::vector<float> uniforms ) -> int {
       consoleGl:: vec2 coord(x,y);
-      auto uv= (coord*2.0-resolution)/resolution.y;
-        if (uv.y>=sin(4*uv.x+t*3.0)*0.2) return true; 
-        return false;             
-     };
-     std::function<bool(int, int,float t)> shader2 = [=](int x, int y,float t) -> bool {
-     	    consoleGl:: vec2 coord(x,y);
-     	      auto uv= (coord*2.0-resolution)/resolution.y;
-     	     if (abs(uv.x*uv.x+uv.y*uv.y-sin(t*2.0))<=0.1) return true;
-                 return false;
-     };
+      using namespace consoleGl::shader;
+      using namespace consoleGl;
+      consoleGl::vec2 resolution(uniforms[0],uniforms[1]);
+      float t= uniforms[2];
+      auto uv= (coord*2.0-resolution)/resolution.x;
+      auto uv0 = mat3::rotate(t*PI)*uv;
+      auto uv2 = uv+ vec2(1.5*sin(t));
+      float d1= (sdBox(uv0*0.6,vec2(0.2)));
+      float d2 = sdCircle((uv+uv2)*8.0,0.3);
+      float d = smoothMin(d1,d2,0.5);
+         if (abs(d)<=0.035) return 9;
+         return 1;
+      
+       };
+       
+       consoleGl::shader_uniforms uniforms ={resolution.x,resolution.y,0.5};
+       applyFragment (frame,shader1,uniforms);
+       frame.print();
+
+    
      
 
       
      
-       auto start_time = std::chrono::high_resolution_clock::now();
+      auto start_time = std::chrono::high_resolution_clock::now();
       while (true){
         auto now = std::chrono::high_resolution_clock::now();
          std::chrono::duration<double> elapsed = now - start_time;
-         auto time = elapsed.count();
-         if(time>=30)break;
-         if(time<=15){
-         applyFragment(frame,shader2,time);
-         }else {
-         	applyFragment(frame,shader1,time);
-         }
+         auto time =(float) elapsed.count();
+         consoleGl::shader_uniforms uniforms ={resolution.x,resolution.y,time};
+         if(time>=15)break;
+         applyFragment(frame,shader1,uniforms);
+          
          frame.print();
-         consoleGl::delay(4);
+         consoleGl::delay(5);
          frame.clear();	
          
       }

@@ -8,6 +8,7 @@ namespace consoleGl{
  	    float y;
 		float z;
 		vec2 ():x(0),y(0),z(1){}
+		vec2 (float v): x(v),y(v),z(v){}
 		vec2 (float X,float Y):x(X),y(Y),z(1){}
 		vec2 (const vec2 & other){
     		 x=other.x;

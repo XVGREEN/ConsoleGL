@@ -3,11 +3,12 @@
 #include <algorithm>
 namespace consoleGl{
 struct frame_buffer {
-    bool* data;
+    int * data;
     int height, width;
-
+   const std::string  values =" .,:;+*?%S#@";
     frame_buffer(int w, int h) : width(w), height(h) {
-        data = new bool[w * h](); // Inicializa com "false"
+        data = new int [w * h](); // Inicializa com "false"
+        
     }
 
     int size() const { return height * width; }
@@ -22,11 +23,10 @@ struct frame_buffer {
     }
 
    void print() const {
-        for(int i=0;i<width;i++)std::cout<<"-";
-        std::cout<<"\n";
+      
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                std::cout << (data[y * width + x] ? "#" : ".");
+                std::cout << values[data[y * width + x]];
             }
             std::cout << "\n";
         }
