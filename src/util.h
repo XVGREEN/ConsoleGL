@@ -25,10 +25,11 @@ namespace consoleGl{
         }
     };
 
-     void delay(int k) {
-       for (int i = 0; i < k * 10000; i++)                       
-           for (int j = 0; j < k * 100; j++);
-       }
+     void delay(int milliseconds) {           
+          std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+            
+      }
+       
 	template<class T>
 	T lerp (T a, T b,float t){
 		return a+(b-a)*t;

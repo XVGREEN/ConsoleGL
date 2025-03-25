@@ -1,15 +1,5 @@
-#include <iostream>
-#include <unistd.h>
-#include <cstdlib>
-#include <cmath>
-#include <functional>
-#include <chrono>
-#include <thread>
 #include "src/consolegl.h"
 
-void delay(int milliseconds) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-}
 int main (){ 
    int fc=0;
    const int fpp=20;  
@@ -52,7 +42,7 @@ int main (){
          }
          fc++;
          
-         delay(35);
+         consoleGl::delay(35);
          frame.clear();	
          
       }
