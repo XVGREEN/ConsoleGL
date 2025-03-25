@@ -22,15 +22,18 @@ struct frame_buffer {
         delete[] data;
     }
 
-   void print() const {
-      
+    void print() const {
+        std::string output;
+        output.reserve(width * height + height); 
+    
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                std::cout << values[data[y * width + x]];
+                output += values[data[y * width + x]];
             }
-            std::cout << "\n";
+            output += '\n';  
         }
-
+    
+        std::cout << output; 
     }
   
     void clear() {
