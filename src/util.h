@@ -3,25 +3,25 @@
 #define PI 3.141592653589793
 namespace consoleGl{
   
-    struct color {
+    struct Color {
         float r, g, b;
     
        
-        color(float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
+       Color   (float r = 0, float g = 0, float b = 0) : r(r), g(g), b(b) {}
     
        
-        color operator+(const color& other) const {
-            return color(r + other.r, g + other.g, b + other.b);
+        Color operator+(const Color& other) const {
+            return Color(r + other.r, g + other.g, b + other.b);
         }
     
         
-        color operator-(const color& other) const {
-            return color(r - other.r, g - other.g, b - other.b);
+        Color operator-(const Color& other) const {
+            return Color(r - other.r, g - other.g, b - other.b);
         }
     
        
-        color operator*(float scalar) const {
-            return color(r * scalar, g * scalar, b * scalar);
+        Color operator*(float scalar) const {
+            return Color(r * scalar, g * scalar, b * scalar);
         }
     };
 
