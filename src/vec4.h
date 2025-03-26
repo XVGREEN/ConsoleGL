@@ -38,6 +38,9 @@ struct Vec4 {
     Vec4 normalized() const {
         float len = length();
         return len > 0 ? (*this) / len : Vec4(0);
+    } 
+    Vec3 xyz (){
+    	return Vec3 (x,y,z);
     }
 
     // Utility

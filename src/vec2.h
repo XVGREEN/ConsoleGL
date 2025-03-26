@@ -38,7 +38,7 @@ namespace consoleGl {
             return sqrt(x * x + y * y);
         }
         
-        Vec2 normal() {
+         Vec2 normal() {
             float l = length();
             return Vec2(x / l, y / l);
         }
@@ -46,5 +46,12 @@ namespace consoleGl {
         friend float dot(Vec2 a, Vec2 b) {
             return a.x * b.x + a.y * b.y;
         }
+        friend float length(Vec2 vec){
+        	return vec.length();
+        }
+        friend Vec2 normalize(Vec2 vec){
+        	return vec.normal();
+        }
+        
     };
 }

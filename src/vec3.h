@@ -45,11 +45,24 @@ struct Vec3 {
     float length() const {
         return std::sqrt(x * x + y * y + z * z);
     }
-
+    
     // Normalization
-    Vec3 normalized() const {
+    Vec3 normal() const {
         float len = length();
         return len > 0 ? (*this) / len : Vec3(0);
+    }
+
+    friend float dot(Vec3 a, Vec3 b){
+    	return a.dot(b);
+    }
+    friend float length(Vec3 a){
+    	return a.length();
+    }
+    friend Vec3 normalize (Vec3 a) {
+    	return a.normal();
+    }
+    friend Vec3 abs (Vec3 vec){
+        return Vec3 (abs(vec.x),abs(vec.y),abs(vec.z));
     }
 
     // Print utility
