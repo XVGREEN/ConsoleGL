@@ -5,7 +5,7 @@ namespace consoleGl{
 struct FrameBuffer{
     int * data;
     int height, width;
-   const std::string  values =".,:;+*?%S#@";
+   const std::string  values =" .,:;+*?%S#@";
     FrameBuffer(int w, int h) : width(w), height(h) {
         data = new int [w * h](); // Inicializa com "false"
         

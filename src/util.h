@@ -1,6 +1,8 @@
 #ifndef UTIL
 #define UTIL
 #define PI 3.141592653589793
+#include <termios.h>
+#include <fcntl.h>
 namespace consoleGl{
   
     struct Color {
@@ -34,6 +36,29 @@ namespace consoleGl{
 	T lerp (T a, T b,float t){
 		return a+(b-a)*t;
 	}
+
+
+   
+   char getKey() {
+       struct termios oldt, newt;
+       int ch = 0; // Alterado para int
+       int oldf;
+   
+       tcgetattr(STDIN_FILENO, &oldt);
+       newt = oldt;
+       newt.c_lflag &= ~(ICANON | ECHO);
+       tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+   
+       oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+       fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+   
+       ch = getchar(); // getchar() retorna um int
+   
+       tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+       fcntl(STDIN_FILENO, F_SETFL, oldf);
+   
+       return (ch != EOF) ? (char)ch : 0;
+   }
 	
 }
 #endif

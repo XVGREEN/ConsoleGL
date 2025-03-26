@@ -5,12 +5,14 @@ consoleGl::FragShader cubeShader = [](int x, int y, std::vector<float> uniforms)
 
     Vec2 resolution(uniforms[0], uniforms[1]);
     float t = uniforms[2];
-
+    Vec3 pos(uniforms[3],uniforms[4],uniforms[5]);
+   
     // Normaliza coordenadas
     Vec2 uv = (coord * 2.0f - resolution) / resolution.y;
-
+   // uv = Mat2::rotate(t)*uv;
+    
     // Origem do raio (posição da câmera)
-    Vec3 ro =Mat3::rotate(t*3.14)* Vec3(0.0f, 0.0f, -3.0f);
+    Vec3 ro = pos;
 
     // Direção do raio (projeção perspectiva)
     Vec3 rd = normalize(Vec3(uv.x, uv.y, 1.0f));
@@ -22,7 +24,7 @@ consoleGl::FragShader cubeShader = [](int x, int y, std::vector<float> uniforms)
     const float EPSILON = 0.001f;
 
     // Posição e tamanho do cubo
-    Vec3 cubePos =Mat3::rotate(t)* Vec3(0.1f, 2.0f, 1.0f);
+    Vec3 cubePos =Vec3(0.1f, 2.0f, 1.0f);
     Vec3 cubeSize = Vec3(0.9f); // Meio tamanho do cubo
 
     // Loop de raymarching
@@ -41,7 +43,7 @@ consoleGl::FragShader cubeShader = [](int x, int y, std::vector<float> uniforms)
             ));
 
             // Luz móvel girando com o tempo
-            Vec4 light = Vec4(1, -1.8, -1, -1);
+            Vec4 light = Vec4(1, -1.8, -1.3, -1);
             Vec3 lightDir = normalize(light.xyz());
 
             // Sombra suave
